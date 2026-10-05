@@ -1,23 +1,21 @@
+# name of the pipeline
 
-# name of the pipleine
-
-name :  Pipeline
+name: Pipeline
 
 # set trigger
-on :
+on:
   push:
     branches:
       - main
 
-
 # set jobs
 jobs:
   run-python-code:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name : run python program
-        run : python welcome.py
-          
+      - name: Run Python program
+        run: python welcome.py
