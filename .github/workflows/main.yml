@@ -1,21 +1,34 @@
-# name of the pipeline
+name : ETL pipeline
 
-name: Pipeline
-
-# set trigger
 on:
-  push:
+  psuh:
     branches:
       - main
 
-# set jobs
 jobs:
-  run-python-code:
+  extract-job:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Python program
-        run: python welcome.py
+      - name : run python code
+        uses : python extract.py
+
+  transform-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name : run python code
+        uses : python transform.py
+
+  load-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name : run python code
+        uses : python load.py
