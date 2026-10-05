@@ -1,7 +1,7 @@
-name : ETL pipeline
+name: ETL pipeline
 
 on:
-  psuh:
+  push:
     branches:
       - main
 
@@ -10,25 +10,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name : run python code
-        uses : python extract.py
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Extract
+        run: python extract.py
 
   transform-job:
+    needs: extract-job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name : run python code
-        uses : python transform.py
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Transform
+        run: python transform.py
 
   load-job:
+    needs: transform-job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name : run python code
-        uses : python load.py
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Load
+        run: python load.py
